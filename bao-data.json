@@ -1,0 +1,47 @@
+{
+  "users": [
+    {
+      "id": "user1",
+      "name": "Tú",
+      "color": "#BB86FC",
+      "points": 0,
+      "isAway": false
+    },
+    {
+      "id": "user2",
+      "name": "Alex",
+      "color": "#03DAC6",
+      "points": 0,
+      "isAway": false
+    },
+    {
+      "id": "user3",
+      "name": "Sofia",
+      "color": "#CF6679",
+      "points": 0,
+      "isAway": false
+    },
+    {
+      "id": "user4",
+      "name": "Dani",
+      "color": "#FFD700",
+      "points": 0,
+      "isAway": false
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task-1774128935244",
+      "title": "Limpiar la Casa",
+      "category": "Limpieza",
+      "assignedTo": "user4",
+      "isCompleted": false,
+      "dueDate": "2026-03-23T00:00:00.000Z",
+      "points": 20,
+      "createdAt": "2026-03-21T21:35:35.244Z",
+      "createdBy": "user1"
+    }
+  ],
+  "lastSync": "2026-03-21T21:35:36.314Z",
+  "version": "1.0"
+}
