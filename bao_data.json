@@ -1,0 +1,10 @@
+{
+  "users": [
+    { "id": "user1", "name": "Rixon", "color": "#126789", "points": 0, "isAway": false },
+    { "id": "user2", "name": "Michi", "color": "#258458", "points": 0, "isAway": false },
+    { "id": "user3", "name": "Claudia", "color": "#CF6679", "points": 0, "isAway": false },
+    { "id": "user4", "name": "Pedro", "color": "#c5ad0f", "points": 0, "isAway": false }
+  ],
+  "tasks": [],
+  "lastSync": ""
+}
