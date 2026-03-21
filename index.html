@@ -4,775 +4,121 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BAO-ROOMIES</title>
-    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==">
-    
-    <!-- Font -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.16/index.css">
     
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #1a1a1a;
-            --bg-card: #242424;
-            --text-primary: #ffffff;
-            --text-secondary: #a0a0a0;
-            --accent-purple: #bb86fc;
-            --accent-teal: #03dac6;
-            --accent-red: #cf6679;
-            --accent-green: #4caf50;
-            --accent-orange: #ff9800;
-            --accent-yellow: #ffd700;
+            --bg-primary: #0a0a0a; --bg-secondary: #1a1a1a; --bg-card: #242424;
+            --text-primary: #ffffff; --text-secondary: #a0a0a0;
+            --accent-purple: #bb86fc; --accent-teal: #03dac6; --accent-red: #cf6679;
+            --accent-green: #4caf50; --accent-orange: #ff9800; --accent-yellow: #ffd700;
             --border-color: #333333;
         }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        .app-container {
-            max-width: 480px;
-            margin: 0 auto;
-            min-height: 100vh;
-            background-color: var(--bg-primary);
-            position: relative;
-            padding-bottom: 80px;
-        }
-
-        .header {
-            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
-            padding: 20px;
-            border-bottom: 1px solid var(--border-color);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--accent-purple), var(--accent-teal));
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-        }
-
-        .logo-text {
-            font-size: 20px;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--accent-purple), var(--accent-teal));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .user-selector {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .user-avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-        }
-
-        .user-avatar.selected {
-            border-color: var(--accent-teal);
-            box-shadow: 0 0 10px rgba(3, 218, 198, 0.3);
-        }
-
-        .user-avatar.away {
-            opacity: 0.5;
-            border-color: var(--accent-red);
-        }
-
-        .main-content {
-            padding: 20px;
-        }
-
-        .section-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-bottom: 24px;
-        }
-
-        .stat-card {
-            background-color: var(--bg-card);
-            border-radius: 12px;
-            padding: 16px;
-            text-align: center;
-            border: 1px solid var(--border-color);
-            transition: transform 0.3s ease;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-2px);
-        }
-
-        .stat-value {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .stat-label {
-            font-size: 12px;
-            color: var(--text-secondary);
-        }
-
-        .stat-green { color: var(--accent-green); }
-        .stat-orange { color: var(--accent-orange); }
-        .stat-red { color: var(--accent-red); }
-
-        .task-card {
-            background-color: var(--bg-card);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 12px;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
-        }
-
-        .task-card.completed {
-            opacity: 0.6;
-        }
-
-        .task-card.completed .task-title {
-            text-decoration: line-through;
-            color: var(--text-secondary);
-        }
-
-        .task-card.unassigned {
-            border-color: var(--accent-orange);
-            background: linear-gradient(135deg, rgba(255, 152, 0, 0.1) 0%, var(--bg-card) 100%);
-        }
-
-        .task-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 12px;
-        }
-
-        .task-title {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .task-category {
-            font-size: 12px;
-            color: var(--text-secondary);
-            background-color: var(--bg-secondary);
-            padding: 4px 8px;
-            border-radius: 4px;
-            display: inline-block;
-        }
-
-        .task-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .task-assignee {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            color: var(--text-secondary);
-        }
-
-        .task-assignee-avatar {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
-            font-weight: 600;
-        }
-
-        .task-actions {
-            display: flex;
-            gap: 8px;
-        }
-
-        .btn {
-            padding: 8px 16px;
-            border-radius: 8px;
-            border: none;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--accent-purple), var(--accent-teal));
-            color: var(--bg-primary);
-        }
-
-        .btn-success {
-            background-color: var(--accent-green);
-            color: white;
-        }
-
-        .btn-warning {
-            background-color: var(--accent-orange);
-            color: var(--bg-primary);
-        }
-
-        .btn-danger {
-            background-color: var(--accent-red);
-            color: white;
-        }
-
-        .btn-secondary {
-            background-color: var(--bg-secondary);
-            color: var(--text-primary);
-            border: 1px solid var(--border-color);
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        }
-
-        .btn:active {
-            transform: translateY(0);
-        }
-
-        .btn-small {
-            padding: 6px 12px;
-            font-size: 12px;
-        }
-
-        .btn-icon {
-            width: 36px;
-            height: 36px;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-        }
-
-        .ranking-list {
-            background-color: var(--bg-card);
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
-        }
-
-        .ranking-item {
-            display: flex;
-            align-items: center;
-            padding: 16px;
-            border-bottom: 1px solid var(--border-color);
-            transition: background-color 0.3s ease;
-        }
-
-        .ranking-item:last-child {
-            border-bottom: none;
-        }
-
-        .ranking-item:hover {
-            background-color: var(--bg-secondary);
-        }
-
-        .ranking-position {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 14px;
-            margin-right: 12px;
-        }
-
-        .ranking-position.gold {
-            background: linear-gradient(135deg, #ffd700, #ff8c00);
-            color: var(--bg-primary);
-        }
-
-        .ranking-position.silver {
-            background: linear-gradient(135deg, #c0c0c0, #808080);
-            color: var(--bg-primary);
-        }
-
-        .ranking-position.bronze {
-            background: linear-gradient(135deg, #cd7f32, #8b4513);
-            color: white;
-        }
-
-        .ranking-position.normal {
-            background-color: var(--bg-secondary);
-            color: var(--text-secondary);
-        }
-
-        .ranking-user {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .ranking-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            font-size: 16px;
-        }
-
-        .ranking-info {
-            flex: 1;
-        }
-
-        .ranking-name {
-            font-weight: 600;
-            margin-bottom: 2px;
-        }
-
-        .ranking-status {
-            font-size: 12px;
-            color: var(--text-secondary);
-        }
-
-        .ranking-points {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--accent-yellow);
-        }
-
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            max-width: 480px;
-            background-color: var(--bg-secondary);
-            border-top: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-around;
-            padding: 12px 0;
-            z-index: 100;
-        }
-
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: var(--text-secondary);
-            text-decoration: none;
-        }
-
-        .nav-item.active {
-            color: var(--accent-teal);
-        }
-
-        .nav-item:hover {
-            background-color: var(--bg-card);
-        }
-
-        .nav-icon {
-            font-size: 20px;
-        }
-
-        .nav-label {
-            font-size: 11px;
-            font-weight: 500;
-        }
-
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal {
-            background-color: var(--bg-card);
-            border-radius: 16px;
-            padding: 24px;
-            width: 90%;
-            max-width: 400px;
-            max-height: 90vh;
-            overflow-y: auto;
-            transform: scale(0.9);
-            transition: transform 0.3s ease;
-            border: 1px solid var(--border-color);
-        }
-
-        .modal-overlay.active .modal {
-            transform: scale(1);
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .modal-title {
-            font-size: 20px;
-            font-weight: 700;
-        }
-
-        .modal-close {
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            font-size: 24px;
-            cursor: pointer;
-            padding: 4px;
-        }
-
-        .modal-close:hover {
-            color: var(--text-primary);
-        }
-
-        .form-group {
-            margin-bottom: 16px;
-        }
-
-        .form-label {
-            display: block;
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 8px;
-            color: var(--text-secondary);
-        }
-
-        .form-input, .form-select {
-            width: 100%;
-            padding: 12px 16px;
-            background-color: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            color: var(--text-primary);
-            font-size: 14px;
-            font-family: inherit;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-input:focus, .form-select:focus {
-            outline: none;
-            border-color: var(--accent-teal);
-        }
-
-        .form-select option {
-            background-color: var(--bg-secondary);
-            color: var(--text-primary);
-        }
-
-        .toggle-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px;
-            background-color: var(--bg-secondary);
-            border-radius: 8px;
-            margin-bottom: 12px;
-        }
-
-        .toggle-label {
-            font-size: 14px;
-        }
-
-        .toggle-switch {
-            position: relative;
-            width: 50px;
-            height: 26px;
-        }
-
-        .toggle-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .toggle-slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: var(--bg-card);
-            border-radius: 26px;
-            transition: 0.3s;
-            border: 1px solid var(--border-color);
-        }
-
-        .toggle-slider:before {
-            position: absolute;
-            content: "";
-            height: 20px;
-            width: 20px;
-            left: 3px;
-            bottom: 2px;
-            background-color: var(--text-secondary);
-            border-radius: 50%;
-            transition: 0.3s;
-        }
-
-        input:checked + .toggle-slider {
-            background-color: var(--accent-red);
-            border-color: var(--accent-red);
-        }
-
-        input:checked + .toggle-slider:before {
-            transform: translateX(24px);
-            background-color: white;
-        }
-
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            z-index: 2000;
-            transform: translateX(400px);
-            transition: transform 0.3s ease;
-            max-width: 320px;
-        }
-
-        .notification.show {
-            transform: translateX(0);
-        }
-
-        .notification.success {
-            border-left: 4px solid var(--accent-green);
-        }
-
-        .notification.error {
-            border-left: 4px solid var(--accent-red);
-        }
-
-        .notification.warning {
-            border-left: 4px solid var(--accent-orange);
-        }
-
-        .notification-icon {
-            font-size: 20px;
-        }
-
-        .notification-message {
-            flex: 1;
-            font-size: 14px;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 40px 20px;
-            color: var(--text-secondary);
-        }
-
-        .empty-state-icon {
-            font-size: 48px;
-            margin-bottom: 16px;
-            opacity: 0.5;
-        }
-
-        .empty-state-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--text-primary);
-        }
-
-        .empty-state-description {
-            font-size: 14px;
-        }
-
-        .fab {
-            position: fixed;
-            bottom: 90px;
-            right: 20px;
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent-purple), var(--accent-teal));
-            border: none;
-            color: var(--bg-primary);
-            font-size: 24px;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(187, 134, 252, 0.4);
-            transition: all 0.3s ease;
-            z-index: 90;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .fab:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 30px rgba(187, 134, 252, 0.6);
-        }
-
-        .page {
-            display: none;
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        .sync-status {
-            background-color: var(--bg-card);
-            border-radius: 8px;
-            padding: 12px 16px;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border: 1px solid var(--border-color);
-        }
-
-        .sync-indicator {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background-color: var(--accent-green);
-        }
-
-        .sync-indicator.offline {
-            background-color: var(--accent-orange);
-        }
-
-        .sync-text {
-            font-size: 12px;
-            color: var(--text-secondary);
-        }
-
-        @media (max-width: 480px) {
-            .app-container {
-                max-width: 100%;
-            }
-            
-            .bottom-nav {
-                max-width: 100%;
-            }
-        }
-
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--bg-primary);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--border-color);
-            border-radius: 3px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--text-secondary);
-        }
-
-        .sync-buttons {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-top: 16px;
-        }
-
-        .data-preview {
-            background-color: var(--bg-secondary);
-            border-radius: 8px;
-            padding: 12px;
-            margin-top: 12px;
-            font-family: monospace;
-            font-size: 11px;
-            color: var(--text-secondary);
-            max-height: 150px;
-            overflow-y: auto;
-            white-space: pre-wrap;
-            word-break: break-all;
-        }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-primary); color: var(--text-primary); min-height: 100vh; }
+        .app-container { max-width: 480px; margin: 0 auto; min-height: 100vh; padding-bottom: 80px; }
+        .header { background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%); padding: 20px; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 100; }
+        .header-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 12px; }
+        .logo-icon { width: 40px; height: 40px; background: linear-gradient(135deg, var(--accent-purple), var(--accent-teal)); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+        .logo-text { font-size: 20px; font-weight: 700; background: linear-gradient(135deg, var(--accent-purple), var(--accent-teal)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .user-selector { display: flex; align-items: center; gap: 8px; }
+        .user-avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px; cursor: pointer; border: 2px solid transparent; }
+        .user-avatar.selected { border-color: var(--accent-teal); box-shadow: 0 0 10px rgba(3, 218, 198, 0.3); }
+        .user-avatar.away { opacity: 0.5; border-color: var(--accent-red); }
+        .main-content { padding: 20px; }
+        .section-title { font-size: 18px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
+        .stat-card { background-color: var(--bg-card); border-radius: 12px; padding: 16px; text-align: center; border: 1px solid var(--border-color); }
+        .stat-value { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+        .stat-label { font-size: 12px; color: var(--text-secondary); }
+        .stat-green { color: var(--accent-green); } .stat-orange { color: var(--accent-orange); } .stat-red { color: var(--accent-red); }
+        .task-card { background-color: var(--bg-card); border-radius: 12px; padding: 16px; margin-bottom: 12px; border: 1px solid var(--border-color); }
+        .task-card.completed { opacity: 0.6; }
+        .task-card.completed .task-title { text-decoration: line-through; color: var(--text-secondary); }
+        .task-card.unassigned { border-color: var(--accent-orange); }
+        .task-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+        .task-title { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+        .task-category { font-size: 12px; color: var(--text-secondary); background-color: var(--bg-secondary); padding: 4px 8px; border-radius: 4px; display: inline-block; }
+        .task-footer { display: flex; justify-content: space-between; align-items: center; }
+        .task-assignee { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--text-secondary); }
+        .task-assignee-avatar { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; }
+        .task-actions { display: flex; gap: 8px; }
+        .btn { padding: 8px 16px; border-radius: 8px; border: none; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+        .btn-primary { background: linear-gradient(135deg, var(--accent-purple), var(--accent-teal)); color: var(--bg-primary); }
+        .btn-success { background-color: var(--accent-green); color: white; }
+        .btn-warning { background-color: var(--accent-orange); color: var(--bg-primary); }
+        .btn-danger { background-color: var(--accent-red); color: white; }
+        .btn-secondary { background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color); }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); }
+        .btn-small { padding: 6px 12px; font-size: 12px; }
+        .btn-icon { width: 36px; height: 36px; padding: 0; border-radius: 50%; }
+        .ranking-list { background-color: var(--bg-card); border-radius: 12px; overflow: hidden; border: 1px solid var(--border-color); }
+        .ranking-item { display: flex; align-items: center; padding: 16px; border-bottom: 1px solid var(--border-color); }
+        .ranking-item:last-child { border-bottom: none; }
+        .ranking-position { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; margin-right: 12px; }
+        .ranking-position.gold { background: linear-gradient(135deg, #ffd700, #ff8c00); color: var(--bg-primary); }
+        .ranking-position.silver { background: linear-gradient(135deg, #c0c0c0, #808080); color: var(--bg-primary); }
+        .ranking-position.bronze { background: linear-gradient(135deg, #cd7f32, #8b4513); color: white; }
+        .ranking-position.normal { background-color: var(--bg-secondary); color: var(--text-secondary); }
+        .ranking-user { flex: 1; display: flex; align-items: center; gap: 12px; }
+        .ranking-avatar { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 16px; }
+        .ranking-info { flex: 1; }
+        .ranking-name { font-weight: 600; margin-bottom: 2px; }
+        .ranking-status { font-size: 12px; color: var(--text-secondary); }
+        .ranking-points { font-size: 18px; font-weight: 700; color: var(--accent-yellow); }
+        .bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; background-color: var(--bg-secondary); border-top: 1px solid var(--border-color); display: flex; justify-content: space-around; padding: 12px 0; z-index: 100; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 8px 16px; border-radius: 8px; cursor: pointer; color: var(--text-secondary); text-decoration: none; }
+        .nav-item.active { color: var(--accent-teal); }
+        .nav-icon { font-size: 20px; }
+        .nav-label { font-size: 11px; font-weight: 500; }
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.8); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal { background-color: var(--bg-card); border-radius: 16px; padding: 24px; width: 90%; max-width: 400px; max-height: 90vh; overflow-y: auto; border: 1px solid var(--border-color); }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .modal-title { font-size: 20px; font-weight: 700; }
+        .modal-close { background: none; border: none; color: var(--text-secondary); font-size: 24px; cursor: pointer; }
+        .form-group { margin-bottom: 16px; }
+        .form-label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 8px; color: var(--text-secondary); }
+        .form-input, .form-select { width: 100%; padding: 12px 16px; background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-primary); font-size: 14px; font-family: inherit; }
+        .form-input:focus, .form-select:focus { outline: none; border-color: var(--accent-teal); }
+        .toggle-container { display: flex; align-items: center; justify-content: space-between; padding: 16px; background-color: var(--bg-secondary); border-radius: 8px; margin-bottom: 12px; }
+        .toggle-switch { position: relative; width: 50px; height: 26px; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .toggle-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--bg-card); border-radius: 26px; transition: 0.3s; border: 1px solid var(--border-color); }
+        .toggle-slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 2px; background-color: var(--text-secondary); border-radius: 50%; transition: 0.3s; }
+        input:checked + .toggle-slider { background-color: var(--accent-red); border-color: var(--accent-red); }
+        input:checked + .toggle-slider:before { transform: translateX(24px); background-color: white; }
+        .notification { position: fixed; top: 20px; right: 20px; background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; padding: 16px; display: flex; align-items: center; gap: 12px; z-index: 2000; transform: translateX(400px); transition: transform 0.3s ease; max-width: 320px; }
+        .notification.show { transform: translateX(0); }
+        .notification.success { border-left: 4px solid var(--accent-green); }
+        .notification.error { border-left: 4px solid var(--accent-red); }
+        .notification.warning { border-left: 4px solid var(--accent-orange); }
+        .empty-state { text-align: center; padding: 40px 20px; color: var(--text-secondary); }
+        .empty-state-icon { font-size: 48px; margin-bottom: 16px; opacity: 0.5; }
+        .empty-state-title { font-size: 18px; font-weight: 600; margin-bottom: 8px; color: var(--text-primary); }
+        .fab { position: fixed; bottom: 90px; right: 20px; width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-purple), var(--accent-teal)); border: none; color: var(--bg-primary); font-size: 24px; cursor: pointer; box-shadow: 0 4px 20px rgba(187, 134, 252, 0.4); z-index: 90; display: flex; align-items: center; justify-content: center; }
+        .page { display: none; }
+        .page.active { display: block; }
+        .sync-panel { background: linear-gradient(135deg, rgba(3, 218, 198, 0.1) 0%, var(--bg-card) 100%); border-radius: 12px; padding: 16px; margin-bottom: 20px; border: 1px solid var(--accent-teal); }
+        .sync-status { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+        .sync-indicator { width: 10px; height: 10px; border-radius: 50%; }
+        .sync-indicator.connected { background-color: var(--accent-green); box-shadow: 0 0 10px var(--accent-green); }
+        .sync-indicator.disconnected { background-color: var(--accent-orange); }
+        .sync-indicator.syncing { background-color: var(--accent-purple); animation: pulse 1s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .sync-info { font-size: 13px; color: var(--text-secondary); }
+        .sync-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+        .last-sync { font-size: 12px; color: var(--text-secondary); margin-top: 8px; text-align: center; }
+        .config-section { background-color: var(--bg-card); border-radius: 12px; padding: 16px; margin-bottom: 16px; border: 1px solid var(--border-color); }
+        .setup-wizard { background: linear-gradient(135deg, rgba(187, 134, 252, 0.15) 0%, var(--bg-card) 100%); border-radius: 12px; padding: 20px; margin-bottom: 20px; border: 1px solid var(--accent-purple); }
+        .setup-step { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px; }
+        .setup-step-number { width: 28px; height: 28px; border-radius: 50%; background: var(--accent-purple); color: var(--bg-primary); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0; }
+        .setup-step-content { flex: 1; }
+        .setup-step-title { font-weight: 600; margin-bottom: 4px; }
+        .setup-step-desc { font-size: 13px; color: var(--text-secondary); }
+        .setup-input-group { margin-top: 12px; }
+        .setup-input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
     </style>
 </head>
 <body>
@@ -784,26 +130,58 @@
                     <div class="logo-icon">🏠</div>
                     <span class="logo-text">BAO-ROOMIES</span>
                 </div>
-                <div class="user-selector" id="userSelector">
-                    <!-- User avatars will be inserted here -->
-                </div>
+                <div class="user-selector" id="userSelector"></div>
             </div>
         </header>
-
-        <!-- Sync Status Banner -->
-        <div class="main-content" style="padding-bottom: 0;">
-            <div class="sync-status">
-                <div class="sync-indicator" id="sync-indicator"></div>
-                <div class="sync-text" id="sync-text">Modo Offline - Datos locales</div>
-            </div>
-        </div>
 
         <!-- Main Content -->
         <main class="main-content">
             <!-- Dashboard Page -->
             <div id="page-dashboard" class="page active">
+                <!-- Setup Wizard (solo si no hay config) -->
+                <div class="setup-wizard" id="setup-wizard" style="display: none;">
+                    <h3 style="margin-bottom: 16px;">🚀 Configuración Inicial</h3>
+                    <div class="setup-step">
+                        <div class="setup-step-number">1</div>
+                        <div class="setup-step-content">
+                            <div class="setup-step-title">Admin configura el token</div>
+                            <div class="setup-step-desc">Solo una persona necesita hacer esto. Ve a Perfil → Configurar GitHub</div>
+                        </div>
+                    </div>
+                    <div class="setup-step">
+                        <div class="setup-step-number">2</div>
+                        <div class="setup-step-content">
+                            <div class="setup-step-title">Los demás sincronizan</div>
+                            <div class="setup-step-desc">El resto solo presiona "Sincronizar" y obtienen la config automáticamente</div>
+                        </div>
+                    </div>
+                    <div class="setup-input-group">
+                        <button class="btn btn-primary" style="width: 100%;" onclick="openConfigModal()">
+                            ⚙️ Soy el Admin - Configurar
+                        </button>
+                        <button class="btn btn-secondary" style="width: 100%; margin-top: 12px;" onclick="syncFromGitHub()">
+                            🔄 Ya hay config - Sincronizar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Sync Panel -->
+                <div class="sync-panel" id="sync-panel" style="display: none;">
+                    <div class="sync-status">
+                        <div class="sync-indicator" id="sync-indicator"></div>
+                        <div>
+                            <div style="font-weight: 600;" id="sync-status-text">Conectando...</div>
+                            <div class="sync-info" id="sync-info-text">Verificando conexión con GitHub</div>
+                        </div>
+                    </div>
+                    <div class="sync-buttons">
+                        <button class="btn btn-primary" onclick="syncFromGitHub()" id="btn-sync">🔄 Sincronizar</button>
+                        <button class="btn btn-secondary" onclick="openConfigModal()">⚙️ Config</button>
+                    </div>
+                    <div class="last-sync" id="last-sync-time"></div>
+                </div>
+
                 <h2 class="section-title">📊 Resumen del Día</h2>
-                
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-value stat-green" id="stat-completed">0</div>
@@ -820,30 +198,22 @@
                 </div>
 
                 <h2 class="section-title">⚠️ Tareas Sin Asignar</h2>
-                <div id="unassigned-tasks">
-                    <!-- Unassigned tasks will be inserted here -->
-                </div>
+                <div id="unassigned-tasks"></div>
 
                 <h2 class="section-title">📋 Tus Pendientes</h2>
-                <div id="my-tasks">
-                    <!-- My tasks will be inserted here -->
-                </div>
+                <div id="my-tasks"></div>
             </div>
 
             <!-- Tasks Page -->
             <div id="page-tasks" class="page">
                 <h2 class="section-title">✅ Todas las Tareas</h2>
-                <div id="all-tasks">
-                    <!-- All tasks will be inserted here -->
-                </div>
+                <div id="all-tasks"></div>
             </div>
 
             <!-- Ranking Page -->
             <div id="page-ranking" class="page">
                 <h2 class="section-title">🏆 Ranking BAO</h2>
-                <div class="ranking-list" id="ranking-list">
-                    <!-- Ranking items will be inserted here -->
-                </div>
+                <div class="ranking-list" id="ranking-list"></div>
             </div>
 
             <!-- Profile Page -->
@@ -858,59 +228,25 @@
                             <span class="toggle-slider"></span>
                         </label>
                     </div>
-                    <p style="color: var(--text-secondary); font-size: 14px; margin-top: 12px;">
-                        Al activar esta opción, no se te asignarán tareas hoy y tus notificaciones se pausarán.
-                    </p>
                 </div>
 
-                <h2 class="section-title" style="margin-top: 24px;">🔄 Sincronización</h2>
-                
-                <div class="task-card">
-                    <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 16px;">
-                        Como no usamos servidores externos, pueden sincronizar los datos manualmente exportando/importando el archivo de datos.
-                    </p>
-                    
-                    <div class="sync-buttons">
-                        <button class="btn btn-primary" onclick="exportData()">
-                            📤 Exportar Datos
-                        </button>
-                        <button class="btn btn-secondary" onclick="document.getElementById('import-file').click()">
-                            📥 Importar Datos
-                        </button>
-                    </div>
-                    <input type="file" id="import-file" accept=".json" style="display: none;" onchange="importData(event)">
-                    
-                    <div style="margin-top: 16px;">
-                        <button class="btn btn-warning" style="width: 100%;" onclick="openAddTaskModal()">
-                            ➕ Crear Nueva Tarea
-                        </button>
-                    </div>
-                    
-                    <div style="margin-top: 12px;">
-                        <button class="btn btn-danger" style="width: 100%;" onclick="resetWeeklyTasks()">
-                            🔄 Reiniciar Tareas Semanales
-                        </button>
-                    </div>
+                <div class="config-section">
+                    <h3 style="margin-bottom: 12px;">🔧 Administración</h3>
+                    <button class="btn btn-primary" style="width: 100%; margin-bottom: 12px;" onclick="openAddTaskModal()">➕ Crear Nueva Tarea</button>
+                    <button class="btn btn-warning" style="width: 100%; margin-bottom: 12px;" onclick="syncToGitHub()">☁️ Forzar Sync a GitHub</button>
+                    <button class="btn btn-secondary" style="width: 100%; margin-bottom: 12px;" onclick="openConfigModal()">⚙️ Configurar GitHub</button>
+                    <button class="btn btn-secondary" style="width: 100%;" onclick="editUsers()">✏️ Editar Nombres</button>
                 </div>
 
-                <div class="task-card">
-                    <h3 style="margin-bottom: 12px;">📝 Instrucciones de Sync</h3>
+                <div class="config-section">
+                    <h3 style="margin-bottom: 12px;">📖 Instrucciones</h3>
                     <ol style="color: var(--text-secondary); font-size: 13px; padding-left: 20px; line-height: 1.8;">
-                        <li>Una persona exporta los datos (botón arriba)</li>
-                        <li>Comparte el archivo .json por WhatsApp/Telegram</li>
-                        <li>Los demás importan el archivo en sus dispositivos</li>
-                        <li>¡Listo! Todos tendrán los mismos datos</li>
+                        <li><strong>Admin:</strong> Configura token en este menú</li>
+                        <li><strong>Admin:</strong> Crea tareas iniciales</li>
+                        <li><strong>Admin:</strong> Dale "Forzar Sync"</li>
+                        <li><strong>Roomies:</strong> Abren la app y dan "Sincronizar"</li>
+                        <li><strong>Todos:</strong> ¡Listo! Todos pueden editar</li>
                     </ol>
-                </div>
-
-                <div class="task-card">
-                    <h3 style="margin-bottom: 12px;">⚙️ Configuración</h3>
-                    <button class="btn btn-secondary" style="width: 100%; margin-bottom: 12px;" onclick="editUsers()">
-                        ✏️ Editar Nombres de Roomies
-                    </button>
-                    <button class="btn btn-danger" style="width: 100%;" onclick="clearAllData()">
-                        🗑️ Borrar Todos los Datos
-                    </button>
                 </div>
             </div>
         </main>
@@ -965,7 +301,6 @@
                         <label class="form-label">Asignar a</label>
                         <select class="form-select" id="task-assignee" required>
                             <option value="">Sin asignar (votación)</option>
-                            <!-- Options will be inserted here -->
                         </select>
                     </div>
                     <div class="form-group">
@@ -976,10 +311,40 @@
                         <label class="form-label">Puntos XP</label>
                         <input type="number" class="form-input" id="task-points" value="10" min="1" max="100">
                     </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%;">
-                        Crear Tarea
-                    </button>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Crear Tarea</button>
                 </form>
+            </div>
+        </div>
+
+        <!-- Config Modal -->
+        <div class="modal-overlay" id="config-modal">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3 class="modal-title">⚙️ Configuración GitHub</h3>
+                    <button class="modal-close" onclick="closeConfigModal()">&times;</button>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Usuario GitHub</label>
+                    <input type="text" class="form-input" id="config-username" placeholder="tu-usuario-github">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Repositorio</label>
+                    <input type="text" class="form-input" id="config-repo" placeholder="bao-roomies">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Personal Access Token</label>
+                    <input type="password" class="form-input" id="config-token" placeholder="ghp_xxxxxxxxxxxx">
+                    <small style="color: var(--text-secondary); font-size: 11px; margin-top: 4px; display: block;">
+                        🔑 Crea tu token en: github.com/settings/tokens (scope: repo)
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Rama</label>
+                    <input type="text" class="form-input" id="config-branch" value="main">
+                </div>
+                <button class="btn btn-primary" style="width: 100%;" onclick="saveConfig()">💾 Guardar Config</button>
+                <button class="btn btn-warning" style="width: 100%; margin-top: 12px;" onclick="pushConfigToGitHub()">📤 Subir Config para Roomies</button>
+                <button class="btn btn-secondary" style="width: 100%; margin-top: 12px;" onclick="testConnection()">🧪 Probar Conexión</button>
             </div>
         </div>
 
@@ -990,9 +355,7 @@
                     <h3 class="modal-title">🗳️ Asumir Tarea</h3>
                     <button class="modal-close" onclick="closeVoteModal()">&times;</button>
                 </div>
-                <div id="vote-content">
-                    <!-- Vote content will be inserted here -->
-                </div>
+                <div id="vote-content"></div>
             </div>
         </div>
 
@@ -1004,12 +367,8 @@
                     <button class="modal-close" onclick="closeEditUsersModal()">&times;</button>
                 </div>
                 <form id="edit-users-form">
-                    <div id="edit-users-inputs">
-                        <!-- User inputs will be inserted here -->
-                    </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 16px;">
-                        Guardar Cambios
-                    </button>
+                    <div id="edit-users-inputs"></div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 16px;">Guardar</button>
                 </form>
             </div>
         </div>
@@ -1017,14 +376,23 @@
         <!-- Notification -->
         <div class="notification" id="notification">
             <span class="notification-icon" id="notification-icon">✓</span>
-            <span class="notification-message" id="notification-message">Mensaje</span>
+            <span class="notification-message" id="notification-message"></span>
         </div>
     </div>
 
     <script>
         // ============================================
-        // DATOS DE USUARIOS (LOS 4 ROOMIES)
+        // CONFIGURACIÓN GITHUB
         // ============================================
+        let GITHUB_CONFIG = {
+            username: '',
+            repo: 'bao-roomies',
+            token: '',
+            branch: 'main',
+            configPath: 'bao-config.json',
+            dataPath: 'bao-data.json'
+        };
+
         const defaultUsers = [
             { id: 'user1', name: 'Tú', color: '#BB86FC', points: 0, isAway: false },
             { id: 'user2', name: 'Alex', color: '#03DAC6', points: 0, isAway: false },
@@ -1032,181 +400,369 @@
             { id: 'user4', name: 'Dani', color: '#FFD700', points: 0, isAway: false }
         ];
 
-        // ============================================
-        // ESTADO DE LA APLICACIÓN
-        // ============================================
         let currentUser = null;
         let users = [];
         let tasks = [];
+        let lastSync = null;
+        let isSyncing = false;
+        let hasConfig = false;
 
-        // ============================================
-        // INICIALIZACIÓN
-        // ============================================
         document.addEventListener('DOMContentLoaded', () => {
-            initializeApp();
+            loadConfig();
+            loadLocalData();
             setupNavigation();
             setupEventListeners();
-            loadFromStorage();
+            checkSetupStatus();
             renderAll();
-            checkConnection();
         });
 
-        function initializeApp() {
-            // Establecer usuario actual desde localStorage
-            const savedUser = localStorage.getItem('bao-current-user');
-            if (savedUser) {
-                currentUser = savedUser;
-            } else {
-                currentUser = 'user1';
+        function loadConfig() {
+            const saved = localStorage.getItem('bao-github-config');
+            if (saved) {
+                GITHUB_CONFIG = JSON.parse(saved);
+                hasConfig = !!(GITHUB_CONFIG.token && GITHUB_CONFIG.username);
+                document.getElementById('config-username').value = GITHUB_CONFIG.username || '';
+                document.getElementById('config-repo').value = GITHUB_CONFIG.repo || 'bao-roomies';
+                document.getElementById('config-token').value = GITHUB_CONFIG.token || '';
+                document.getElementById('config-branch').value = GITHUB_CONFIG.branch || 'main';
+            }
+        }
+
+        function saveConfig() {
+            GITHUB_CONFIG = {
+                username: document.getElementById('config-username').value.trim(),
+                repo: document.getElementById('config-repo').value.trim(),
+                token: document.getElementById('config-token').value.trim(),
+                branch: document.getElementById('config-branch').value.trim(),
+                configPath: 'bao-config.json',
+                dataPath: 'bao-data.json'
+            };
+            localStorage.setItem('bao-github-config', JSON.stringify(GITHUB_CONFIG));
+            hasConfig = true;
+            closeConfigModal();
+            showNotification('✅ Configuración guardada', 'success');
+            checkSetupStatus();
+            updateSyncStatus();
+        }
+
+        async function pushConfigToGitHub() {
+            if (!GITHUB_CONFIG.token || !GITHUB_CONFIG.username) {
+                showNotification('⚠️ Completa usuario y token primero', 'warning');
+                return;
             }
 
-            // Actualizar estado de conexión
-            window.addEventListener('online', () => updateSyncStatus(true));
-            window.addEventListener('offline', () => updateSyncStatus(false));
+            isSyncing = true;
+            updateSyncStatus('syncing');
+
+            try {
+                // Subir config para que otros la puedan descargar
+                const configData = {
+                    username: GITHUB_CONFIG.username,
+                    repo: GITHUB_CONFIG.repo,
+                    branch: GITHUB_CONFIG.branch,
+                    configPath: 'bao-config.json',
+                    dataPath: 'bao-data.json'
+                };
+
+                const content = btoa(unescape(encodeURIComponent(JSON.stringify(configData, null, 2))));
+
+                // Primero obtener SHA si existe
+                let sha = null;
+                const getUrl = `https://api.github.com/repos/${GITHUB_CONFIG.username}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.configPath}?ref=${GITHUB_CONFIG.branch}`;
+                const getResponse = await fetch(getUrl, {
+                    headers: { 'Authorization': `token ${GITHUB_CONFIG.token}`, 'Accept': 'application/vnd.github.v3+json' }
+                });
+                if (getResponse.ok) {
+                    const getData = await getResponse.json();
+                    sha = getData.sha;
+                }
+
+                // Subir/Actualizar config
+                const putUrl = `https://api.github.com/repos/${GITHUB_CONFIG.username}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.configPath}`;
+                const body = {
+                    message: 'BAO-ROOMIES: Config para roomies',
+                    content: content,
+                    branch: GITHUB_CONFIG.branch
+                };
+                if (sha) body.sha = sha;
+
+                const putResponse = await fetch(putUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${GITHUB_CONFIG.token}`,
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(body)
+                });
+
+                if (!putResponse.ok) throw new Error(`Error ${putResponse.status}`);
+
+                showNotification('✅ Config subida! Los roomies ya pueden sincronizar', 'success');
+            } catch (error) {
+                showNotification('❌ Error: ' + error.message, 'error');
+            } finally {
+                isSyncing = false;
+                updateSyncStatus();
+            }
         }
 
-        function checkConnection() {
-            updateSyncStatus(navigator.onLine);
-        }
+        async function fetchConfigFromGitHub() {
+            if (!GITHUB_CONFIG.username || !GITHUB_CONFIG.repo) {
+                throw new Error('Configura usuario y repositorio primero');
+            }
 
-        function updateSyncStatus(isOnline) {
-            const indicator = document.getElementById('sync-indicator');
-            const text = document.getElementById('sync-text');
+            // Intentar obtener config SIN token (para repo público) o CON token (para privado)
+            const url = `https://api.github.com/repos/${GITHUB_CONFIG.username}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.configPath}?ref=${GITHUB_CONFIG.branch}`;
             
-            if (isOnline) {
-                indicator.classList.remove('offline');
-                text.textContent = 'Conectado - Datos locales';
-            } else {
-                indicator.classList.add('offline');
-                text.textContent = 'Sin conexión - Modo offline';
+            const headers = {};
+            if (GITHUB_CONFIG.token) {
+                headers['Authorization'] = `token ${GITHUB_CONFIG.token}`;
             }
+            headers['Accept'] = 'application/vnd.github.v3+json';
+
+            const response = await fetch(url, { headers });
+
+            if (!response.ok) {
+                if (response.status === 404) {
+                    throw new Error('No hay config en GitHub. El admin debe subirla primero.');
+                }
+                throw new Error(`Error ${response.status}: ${response.statusText}`);
+            }
+
+            const data = await response.json();
+            const content = JSON.parse(atob(data.content));
+
+            // Aplicar config recibida
+            GITHUB_CONFIG.username = content.username || GITHUB_CONFIG.username;
+            GITHUB_CONFIG.repo = content.repo || GITHUB_CONFIG.repo;
+            GITHUB_CONFIG.branch = content.branch || GITHUB_CONFIG.branch;
+            
+            localStorage.setItem('bao-github-config', JSON.stringify(GITHUB_CONFIG));
+            hasConfig = true;
         }
 
-        // ============================================
-        // LOCAL STORAGE FUNCTIONS
-        // ============================================
-        function loadFromStorage() {
+        function loadLocalData() {
             const savedUsers = localStorage.getItem('bao-users');
             const savedTasks = localStorage.getItem('bao-tasks');
+            const savedLastSync = localStorage.getItem('bao-last-sync');
 
-            if (savedUsers) {
-                users = JSON.parse(savedUsers);
-            } else {
-                users = [...defaultUsers];
-                saveToStorage();
-            }
+            if (savedUsers) users = JSON.parse(savedUsers);
+            else users = [...defaultUsers];
 
-            if (savedTasks) {
-                tasks = JSON.parse(savedTasks);
-            }
+            if (savedTasks) tasks = JSON.parse(savedTasks);
+            if (savedLastSync) lastSync = new Date(savedLastSync);
 
-            renderUserSelector();
+            currentUser = localStorage.getItem('bao-current-user') || 'user1';
         }
 
-        function saveToStorage() {
+        function saveLocalData() {
             localStorage.setItem('bao-users', JSON.stringify(users));
             localStorage.setItem('bao-tasks', JSON.stringify(tasks));
             localStorage.setItem('bao-current-user', currentUser);
+            if (lastSync) localStorage.setItem('bao-last-sync', lastSync.toISOString());
         }
 
-        // ============================================
-        // EXPORT/IMPORT DATA (SYNC MANUAL)
-        // ============================================
-        function exportData() {
-            const data = {
-                users: users,
-                tasks: tasks,
-                exportDate: new Date().toISOString(),
-                version: '1.0'
-            };
+        function checkSetupStatus() {
+            const wizard = document.getElementById('setup-wizard');
+            const panel = document.getElementById('sync-panel');
 
-            const dataStr = JSON.stringify(data, null, 2);
-            const blob = new Blob([dataStr], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `bao-roomies-${new Date().toISOString().split('T')[0]}.json`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-
-            showNotification('Datos exportados. Comparte el archivo con tus roomies.', 'success');
+            if (!hasConfig) {
+                wizard.style.display = 'block';
+                panel.style.display = 'none';
+            } else {
+                wizard.style.display = 'none';
+                panel.style.display = 'block';
+                updateSyncStatus();
+                autoSync();
+            }
         }
 
-        function importData(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = (e) => {
+        async function syncFromGitHub() {
+            if (!hasConfig) {
+                // Intentar obtener config primero
                 try {
-                    const data = JSON.parse(e.target.result);
-                    
-                    if (data.users && data.tasks) {
-                        users = data.users;
-                        tasks = data.tasks;
-                        saveToStorage();
-                        renderAll();
-                        showNotification('Datos importados correctamente!', 'success');
-                    } else {
-                        showNotification('Archivo inválido', 'error');
-                    }
+                    await fetchConfigFromGitHub();
+                    showNotification('✅ Config obtenida de GitHub', 'success');
+                    checkSetupStatus();
+                    return;
                 } catch (error) {
-                    showNotification('Error al leer el archivo', 'error');
+                    showNotification('⚠️ ' + error.message, 'warning');
+                    openConfigModal();
+                    return;
                 }
-            };
-            reader.readAsText(file);
-            event.target.value = '';
+            }
+
+            if (isSyncing) return;
+            isSyncing = true;
+            updateSyncStatus('syncing');
+
+            try {
+                const url = `https://api.github.com/repos/${GITHUB_CONFIG.username}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.dataPath}?ref=${GITHUB_CONFIG.branch}`;
+                
+                const response = await fetch(url, {
+                    headers: {
+                        'Authorization': `token ${GITHUB_CONFIG.token}`,
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+
+                if (!response.ok) {
+                    if (response.status === 404) {
+                        throw new Error('No hay datos en GitHub. El admin debe crear tareas primero.');
+                    }
+                    throw new Error(`Error ${response.status}: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+                const content = atob(data.content);
+                const parsed = JSON.parse(content);
+
+                users = parsed.users || defaultUsers;
+                tasks = parsed.tasks || [];
+                lastSync = new Date();
+                
+                saveLocalData();
+                renderAll();
+                
+                updateSyncStatus('connected');
+                showNotification('✅ Sincronizado desde GitHub', 'success');
+                
+            } catch (error) {
+                console.error('Sync error:', error);
+                updateSyncStatus('disconnected');
+                showNotification('❌ ' + error.message, 'error');
+            } finally {
+                isSyncing = false;
+            }
         }
 
-        function clearAllData() {
-            if (!confirm('⚠️ ¿Estás seguro? Esto borrará TODOS los datos (tareas, puntos, etc.). No se puede deshacer.')) return;
-            
-            localStorage.removeItem('bao-users');
-            localStorage.removeItem('bao-tasks');
-            users = [...defaultUsers];
-            tasks = [];
-            saveToStorage();
-            renderAll();
-            showNotification('Datos reiniciados', 'warning');
+        async function syncToGitHub() {
+            if (!hasConfig || !GITHUB_CONFIG.token) {
+                showNotification('⚙️ Configura GitHub primero', 'warning');
+                openConfigModal();
+                return;
+            }
+
+            if (isSyncing) return;
+            isSyncing = true;
+            updateSyncStatus('syncing');
+
+            try {
+                // Obtener SHA actual
+                let sha = null;
+                const getUrl = `https://api.github.com/repos/${GITHUB_CONFIG.username}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.dataPath}?ref=${GITHUB_CONFIG.branch}`;
+                const getResponse = await fetch(getUrl, {
+                    headers: { 'Authorization': `token ${GITHUB_CONFIG.token}`, 'Accept': 'application/vnd.github.v3+json' }
+                });
+                if (getResponse.ok) {
+                    const getData = await getResponse.json();
+                    sha = getData.sha;
+                }
+
+                const dataToSave = { users, tasks, lastSync: new Date().toISOString(), version: '1.0' };
+                const content = btoa(unescape(encodeURIComponent(JSON.stringify(dataToSave, null, 2))));
+
+                const putUrl = `https://api.github.com/repos/${GITHUB_CONFIG.username}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.dataPath}`;
+                const body = {
+                    message: `BAO-ROOMIES: Sync por ${users.find(u => u.id === currentUser)?.name || 'Unknown'}`,
+                    content,
+                    branch: GITHUB_CONFIG.branch
+                };
+                if (sha) body.sha = sha;
+
+                const putResponse = await fetch(putUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${GITHUB_CONFIG.token}`,
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(body)
+                });
+
+                if (!putResponse.ok) throw new Error(`Error ${putResponse.status}`);
+
+                lastSync = new Date();
+                saveLocalData();
+                updateSyncStatus('connected');
+                showNotification('✅ Datos subidos a GitHub', 'success');
+                
+            } catch (error) {
+                updateSyncStatus('disconnected');
+                showNotification('❌ ' + error.message, 'error');
+            } finally {
+                isSyncing = false;
+            }
         }
 
-        // ============================================
-        // NAVIGATION
-        // ============================================
+        async function testConnection() {
+            if (!GITHUB_CONFIG.token || !GITHUB_CONFIG.username) {
+                showNotification('Completa usuario y token', 'warning');
+                return;
+            }
+            try {
+                const url = `https://api.github.com/repos/${GITHUB_CONFIG.username}/${GITHUB_CONFIG.repo}`;
+                const response = await fetch(url, { headers: { 'Authorization': `token ${GITHUB_CONFIG.token}` } });
+                showNotification(response.ok ? '✅ Conexión exitosa' : '❌ ' + response.statusText, response.ok ? 'success' : 'error');
+            } catch (error) {
+                showNotification('❌ Error de conexión', 'error');
+            }
+        }
+
+        function autoSync() {
+            updateSyncStatus();
+            if (hasConfig && GITHUB_CONFIG.token) {
+                setTimeout(() => syncFromGitHub(), 1000);
+            }
+        }
+
+        function updateSyncStatus(status = 'disconnected') {
+            const indicator = document.getElementById('sync-indicator');
+            const statusText = document.getElementById('sync-status-text');
+            const infoText = document.getElementById('sync-info-text');
+            const lastSyncEl = document.getElementById('last-sync-time');
+
+            indicator.className = 'sync-indicator';
+
+            if (status === 'connected' || hasConfig) {
+                indicator.classList.add('connected');
+                statusText.textContent = 'GitHub Conectado';
+                infoText.textContent = 'Todos pueden crear/editar tareas';
+            } else if (status === 'syncing') {
+                indicator.classList.add('syncing');
+                statusText.textContent = 'Sincronizando...';
+                infoText.textContent = 'Espere un momento';
+            } else {
+                indicator.classList.add('disconnected');
+                statusText.textContent = 'Sin Configurar';
+                infoText.textContent = 'El admin debe configurar primero';
+            }
+
+            if (lastSync) {
+                lastSyncEl.textContent = 'Última sync: ' + lastSync.toLocaleString('es-CU');
+            }
+        }
+
         function setupNavigation() {
-            const navItems = document.querySelectorAll('.nav-item');
-            
-            navItems.forEach(item => {
+            document.querySelectorAll('.nav-item').forEach(item => {
                 item.addEventListener('click', (e) => {
                     e.preventDefault();
-                    const page = item.dataset.page;
-                    
-                    navItems.forEach(nav => nav.classList.remove('active'));
+                    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
                     item.classList.add('active');
-                    
                     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-                    document.getElementById(`page-${page}`).classList.add('active');
-                    
+                    document.getElementById(`page-${item.dataset.page}`).classList.add('active');
                     renderAll();
                 });
             });
         }
 
-        // ============================================
-        // EVENT LISTENERS
-        // ============================================
         function setupEventListeners() {
             document.getElementById('add-task-form').addEventListener('submit', handleAddTask);
             document.getElementById('away-toggle').addEventListener('change', handleAwayToggle);
             document.getElementById('edit-users-form').addEventListener('submit', handleEditUsers);
         }
 
-        // ============================================
-        // RENDER FUNCTIONS
-        // ============================================
         function renderAll() {
             renderUserSelector();
             renderStats();
@@ -1216,54 +772,33 @@
             renderRanking();
             renderAssigneeOptions();
             renderEditUsersInputs();
-            
-            // Update away toggle
             const currentUserData = users.find(u => u.id === currentUser);
-            if (currentUserData) {
-                document.getElementById('away-toggle').checked = currentUserData.isAway;
-            }
+            if (currentUserData) document.getElementById('away-toggle').checked = currentUserData.isAway;
         }
 
         function renderUserSelector() {
-            const container = document.getElementById('userSelector');
-            container.innerHTML = users.map(user => `
+            document.getElementById('userSelector').innerHTML = users.map(user => `
                 <div class="user-avatar ${user.id === currentUser ? 'selected' : ''} ${user.isAway ? 'away' : ''}" 
-                     style="background-color: ${user.color};"
-                     onclick="switchUser('${user.id}')"
-                     title="${user.name}${user.isAway ? ' (Ausente)' : ''}">
-                    ${user.name.charAt(0)}
-                </div>
+                     style="background-color: ${user.color};" onclick="switchUser('${user.id}')"
+                     title="${user.name}${user.isAway ? ' (Ausente)' : ''}">${user.name.charAt(0)}</div>
             `).join('');
         }
 
         function renderStats() {
             const today = new Date().toDateString();
             const todayTasks = tasks.filter(t => new Date(t.dueDate).toDateString() === today);
-            
-            const completed = todayTasks.filter(t => t.isCompleted).length;
-            const pending = todayTasks.filter(t => !t.isCompleted).length;
-            const away = users.filter(u => u.isAway).length;
-
-            document.getElementById('stat-completed').textContent = completed;
-            document.getElementById('stat-pending').textContent = pending;
-            document.getElementById('stat-away').textContent = away;
+            document.getElementById('stat-completed').textContent = todayTasks.filter(t => t.isCompleted).length;
+            document.getElementById('stat-pending').textContent = todayTasks.filter(t => !t.isCompleted).length;
+            document.getElementById('stat-away').textContent = users.filter(u => u.isAway).length;
         }
 
         function renderUnassignedTasks() {
             const container = document.getElementById('unassigned-tasks');
             const unassigned = tasks.filter(t => !t.assignedTo || t.assignedTo === '');
-            
             if (unassigned.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-state-icon">✓</div>
-                        <div class="empty-state-title">¡Todas asignadas!</div>
-                        <div class="empty-state-description">No hay tareas sin asignar</div>
-                    </div>
-                `;
+                container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">✓</div><div class="empty-state-title">¡Todas asignadas!</div></div>';
                 return;
             }
-
             container.innerHTML = unassigned.map(task => `
                 <div class="task-card unassigned">
                     <div class="task-header">
@@ -1273,14 +808,8 @@
                         </div>
                     </div>
                     <div class="task-footer">
-                        <div class="task-assignee">
-                            <span>⚠️ Sin asignar</span>
-                        </div>
-                        <div class="task-actions">
-                            <button class="btn btn-warning btn-small" onclick="openVoteModal('${task.id}')">
-                                Asumir
-                            </button>
-                        </div>
+                        <span style="color: var(--text-secondary); font-size: 14px;">⚠️ Sin asignar</span>
+                        <button class="btn btn-warning btn-small" onclick="openVoteModal('${task.id}')">Asumir</button>
                     </div>
                 </div>
             `).join('');
@@ -1289,47 +818,29 @@
         function renderMyTasks() {
             const container = document.getElementById('my-tasks');
             const myTasks = tasks.filter(t => t.assignedTo === currentUser && !t.isCompleted);
-            
             if (myTasks.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-state-icon">🎉</div>
-                        <div class="empty-state-title">¡Todo limpio!</div>
-                        <div class="empty-state-description">No tienes tareas pendientes</div>
-                    </div>
-                `;
+                container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">🎉</div><div class="empty-state-title">¡Todo limpio!</div></div>';
                 return;
             }
-
             container.innerHTML = myTasks.map(task => createTaskCard(task, true)).join('');
         }
 
         function renderAllTasks() {
             const container = document.getElementById('all-tasks');
-            
             if (tasks.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-state-icon">📋</div>
-                        <div class="empty-state-title">Sin tareas</div>
-                        <div class="empty-state-description">Crea tu primera tarea</div>
-                    </div>
-                `;
+                container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📋</div><div class="empty-state-title">Sin tareas</div></div>';
                 return;
             }
-
-            const sortedTasks = [...tasks].sort((a, b) => {
+            const sorted = [...tasks].sort((a, b) => {
                 if (a.isCompleted !== b.isCompleted) return a.isCompleted ? 1 : -1;
                 return new Date(a.dueDate) - new Date(b.dueDate);
             });
-
-            container.innerHTML = sortedTasks.map(task => createTaskCard(task, false)).join('');
+            container.innerHTML = sorted.map(task => createTaskCard(task, false)).join('');
         }
 
-        function createTaskCard(task, showCompleteButton) {
+        function createTaskCard(task, showComplete) {
             const assignee = users.find(u => u.id === task.assignedTo);
             const isOverdue = !task.isCompleted && new Date(task.dueDate) < new Date();
-            
             return `
                 <div class="task-card ${task.isCompleted ? 'completed' : ''}">
                     <div class="task-header">
@@ -1341,27 +852,12 @@
                     </div>
                     <div class="task-footer">
                         <div class="task-assignee">
-                            ${assignee ? `
-                                <div class="task-assignee-avatar" style="background-color: ${assignee.color}">
-                                    ${assignee.name.charAt(0)}
-                                </div>
-                                <span>${assignee.name}</span>
-                            ` : '<span>⚠️ Sin asignar</span>'}
+                            ${assignee ? `<div class="task-assignee-avatar" style="background-color: ${assignee.color}">${assignee.name.charAt(0)}</div><span>${assignee.name}</span>` : '<span>⚠️ Sin asignar</span>'}
                         </div>
                         <div class="task-actions">
-                            ${showCompleteButton && !task.isCompleted ? `
-                                <button class="btn btn-success btn-small" onclick="completeTask('${task.id}')">
-                                    ✓ Hecho
-                                </button>
-                            ` : ''}
-                            ${task.isCompleted ? `
-                                <button class="btn btn-secondary btn-small" onclick="uncompleteTask('${task.id}')">
-                                    ↩ Deshacer
-                                </button>
-                            ` : ''}
-                            <button class="btn btn-icon btn-secondary" onclick="deleteTask('${task.id}')" style="color: var(--accent-red);">
-                                🗑️
-                            </button>
+                            ${showComplete && !task.isCompleted ? `<button class="btn btn-success btn-small" onclick="completeTask('${task.id}')">✓ Hecho</button>` : ''}
+                            ${task.isCompleted ? `<button class="btn btn-secondary btn-small" onclick="uncompleteTask('${task.id}')">↩</button>` : ''}
+                            <button class="btn btn-icon btn-secondary" onclick="deleteTask('${task.id}')" style="color: var(--accent-red);">🗑️</button>
                         </div>
                     </div>
                 </div>
@@ -1370,24 +866,20 @@
 
         function renderRanking() {
             const container = document.getElementById('ranking-list');
-            const sortedUsers = [...users].sort((a, b) => b.points - a.points);
-            
-            container.innerHTML = sortedUsers.map((user, index) => {
-                let positionClass = 'normal';
-                if (index === 0) positionClass = 'gold';
-                else if (index === 1) positionClass = 'silver';
-                else if (index === 2) positionClass = 'bronze';
-
+            const sorted = [...users].sort((a, b) => b.points - a.points);
+            container.innerHTML = sorted.map((user, i) => {
+                let posClass = 'normal';
+                if (i === 0) posClass = 'gold';
+                else if (i === 1) posClass = 'silver';
+                else if (i === 2) posClass = 'bronze';
                 return `
                     <div class="ranking-item">
-                        <div class="ranking-position ${positionClass}">${index + 1}</div>
+                        <div class="ranking-position ${posClass}">${i + 1}</div>
                         <div class="ranking-user">
-                            <div class="ranking-avatar" style="background-color: ${user.color}">
-                                ${user.name.charAt(0)}
-                            </div>
+                            <div class="ranking-avatar" style="background-color: ${user.color}">${user.name.charAt(0)}</div>
                             <div class="ranking-info">
                                 <div class="ranking-name">${user.name} ${user.isAway ? '🏠' : ''}</div>
-                                <div class="ranking-status">${user.isAway ? 'Ausente hoy' : 'Disponible'}</div>
+                                <div class="ranking-status">${user.isAway ? 'Ausente' : 'Disponible'}</div>
                             </div>
                         </div>
                         <div class="ranking-points">${user.points} XP</div>
@@ -1397,251 +889,163 @@
         }
 
         function renderAssigneeOptions() {
-            const select = document.getElementById('task-assignee');
-            select.innerHTML = `
-                <option value="">Sin asignar (votación)</option>
-                ${users.map(user => `
-                    <option value="${user.id}">${user.name}</option>
-                `).join('')}
-            `;
+            document.getElementById('task-assignee').innerHTML = `<option value="">Sin asignar (votación)</option>` +
+                users.map(u => `<option value="${u.id}">${u.name}</option>`).join('');
         }
 
         function renderEditUsersInputs() {
-            const container = document.getElementById('edit-users-inputs');
-            container.innerHTML = users.map((user, index) => `
+            document.getElementById('edit-users-inputs').innerHTML = users.map((u, i) => `
                 <div class="form-group">
-                    <label class="form-label">Roomie ${index + 1}</label>
-                    <input type="text" class="form-input" name="user-${user.id}" value="${user.name}" required>
+                    <label class="form-label">Roomie ${i + 1}</label>
+                    <input type="text" class="form-input" name="user-${u.id}" value="${u.name}" required>
                 </div>
             `).join('');
         }
 
-        // ============================================
-        // HELPER FUNCTIONS
-        // ============================================
-        function getCategoryIcon(category) {
-            const icons = {
-                'Cocina': '🍳',
-                'Limpieza': '🧹',
-                'Fregado': '🍽️',
-                'Lavar Ropa': '👕',
-                'Basura': '🗑️',
-                'General': '📌'
-            };
-            return icons[category] || '📌';
+        function getCategoryIcon(cat) {
+            return { 'Cocina': '🍳', 'Limpieza': '🧹', 'Fregado': '🍽️', 'Lavar Ropa': '👕', 'Basura': '🗑️', 'General': '📌' }[cat] || '📌';
         }
 
-        function switchUser(userId) {
-            currentUser = userId;
-            localStorage.setItem('bao-current-user', currentUser);
+        function switchUser(id) {
+            currentUser = id;
+            localStorage.setItem('bao-current-user', id);
             renderUserSelector();
             renderAll();
-            showNotification(`Cambiado a ${users.find(u => u.id === userId)?.name}`, 'success');
+            showNotification(`Cambiado a ${users.find(u => u.id === id)?.name}`, 'success');
         }
 
-        // ============================================
-        // TASK FUNCTIONS
-        // ============================================
         function handleAddTask(e) {
             e.preventDefault();
-            
-            const title = document.getElementById('task-title').value;
-            const category = document.getElementById('task-category').value;
-            const assignedTo = document.getElementById('task-assignee').value;
-            const dueDate = document.getElementById('task-due-date').value;
-            const points = parseInt(document.getElementById('task-points').value) || 10;
-
             const newTask = {
                 id: 'task-' + Date.now(),
-                title,
-                category,
-                assignedTo,
+                title: document.getElementById('task-title').value,
+                category: document.getElementById('task-category').value,
+                assignedTo: document.getElementById('task-assignee').value,
                 isCompleted: false,
-                dueDate: new Date(dueDate).toISOString(),
-                points,
+                dueDate: new Date(document.getElementById('task-due-date').value).toISOString(),
+                points: parseInt(document.getElementById('task-points').value) || 10,
                 createdAt: new Date().toISOString(),
                 createdBy: currentUser
             };
-
             tasks.push(newTask);
-            saveToStorage();
-            showNotification('Tarea creada correctamente', 'success');
+            saveLocalData();
             closeAddTaskModal();
             document.getElementById('add-task-form').reset();
             renderAll();
+            showNotification('Tarea creada', 'success');
+            if (hasConfig) setTimeout(() => syncToGitHub(), 500);
         }
 
         function completeTask(taskId) {
             const task = tasks.find(t => t.id === taskId);
             if (!task) return;
-
-            const assignee = users.find(u => u.id === task.assignedTo);
-            
             task.isCompleted = true;
-            if (assignee) {
-                assignee.points = (assignee.points || 0) + task.points;
-            }
-            
-            saveToStorage();
-            showNotification('¡Tarea completada! +' + task.points + ' XP', 'success');
+            const assignee = users.find(u => u.id === task.assignedTo);
+            if (assignee) assignee.points = (assignee.points || 0) + task.points;
+            saveLocalData();
             renderAll();
+            showNotification('¡Tarea completada! +' + task.points + ' XP', 'success');
+            if (hasConfig) setTimeout(() => syncToGitHub(), 500);
         }
 
         function uncompleteTask(taskId) {
             const task = tasks.find(t => t.id === taskId);
             if (!task) return;
-
-            const assignee = users.find(u => u.id === task.assignedTo);
-            
             task.isCompleted = false;
-            if (assignee) {
-                assignee.points = Math.max(0, (assignee.points || 0) - task.points);
-            }
-            
-            saveToStorage();
-            showNotification('Tarea desmarcada', 'warning');
+            const assignee = users.find(u => u.id === task.assignedTo);
+            if (assignee) assignee.points = Math.max(0, (assignee.points || 0) - task.points);
+            saveLocalData();
             renderAll();
+            showNotification('Tarea desmarcada', 'warning');
+            if (hasConfig) setTimeout(() => syncToGitHub(), 500);
         }
 
         function deleteTask(taskId) {
-            if (!confirm('¿Estás seguro de eliminar esta tarea?')) return;
-
+            if (!confirm('¿Eliminar tarea?')) return;
             tasks = tasks.filter(t => t.id !== taskId);
-            saveToStorage();
-            showNotification('Tarea eliminada', 'success');
+            saveLocalData();
             renderAll();
+            showNotification('Tarea eliminada', 'success');
+            if (hasConfig) setTimeout(() => syncToGitHub(), 500);
         }
 
         function openVoteModal(taskId) {
             const task = tasks.find(t => t.id === taskId);
             if (!task) return;
-
             document.getElementById('vote-content').innerHTML = `
                 <div class="task-card">
                     <div class="task-title">${task.title}</div>
                     <span class="task-category">${getCategoryIcon(task.category)} ${task.category}</span>
                     <p style="margin-top: 16px; color: var(--text-secondary);">
-                        ¿Quieres asumir esta tarea y ganar <strong style="color: var(--accent-yellow);">${task.points} XP</strong>?
+                        ¿Asumir esta tarea y ganar <strong style="color: var(--accent-yellow);">${task.points} XP</strong>?
                     </p>
                 </div>
-                <button class="btn btn-primary" style="width: 100%; margin-top: 16px;" onclick="claimTask('${taskId}')">
-                    ✓ Sí, la hago yo
-                </button>
+                <button class="btn btn-primary" style="width: 100%; margin-top: 16px;" onclick="claimTask('${taskId}')">✓ Sí, la hago</button>
             `;
-
             document.getElementById('vote-modal').classList.add('active');
         }
 
-        function closeVoteModal() {
-            document.getElementById('vote-modal').classList.remove('active');
-        }
+        function closeVoteModal() { document.getElementById('vote-modal').classList.remove('active'); }
 
         function claimTask(taskId) {
             const task = tasks.find(t => t.id === taskId);
             if (!task) return;
-
             task.assignedTo = currentUser;
-            saveToStorage();
-            showNotification('¡Tarea asumida! +' + task.points + ' XP', 'success');
-            closeVoteModal();
+            saveLocalData();
             renderAll();
+            closeVoteModal();
+            showNotification('¡Tarea asumida! +' + task.points + ' XP', 'success');
+            if (hasConfig) setTimeout(() => syncToGitHub(), 500);
         }
 
-        // ============================================
-        // PROFILE FUNCTIONS
-        // ============================================
         function handleAwayToggle(e) {
-            const isAway = e.target.checked;
             const user = users.find(u => u.id === currentUser);
-            
             if (user) {
-                user.isAway = isAway;
-                saveToStorage();
-                showNotification(isAway ? 'Estado: Ausente' : 'Estado: Disponible', 'success');
+                user.isAway = e.target.checked;
+                saveLocalData();
                 renderAll();
+                showNotification(user.isAway ? 'Estado: Ausente' : 'Estado: Disponible', 'success');
+                if (hasConfig) setTimeout(() => syncToGitHub(), 500);
             }
         }
 
-        function resetWeeklyTasks() {
-            if (!confirm('¿Estás seguro de reiniciar todas las tareas semanales?')) return;
-
-            tasks.forEach(task => {
-                if (!task.isCompleted) {
-                    task.isCompleted = false;
-                }
-            });
-            
-            saveToStorage();
-            showNotification('Tareas reiniciadas', 'success');
-            renderAll();
-        }
-
-        function editUsers() {
-            document.getElementById('edit-users-modal').classList.add('active');
-        }
-
-        function closeEditUsersModal() {
-            document.getElementById('edit-users-modal').classList.remove('active');
-        }
+        function editUsers() { document.getElementById('edit-users-modal').classList.add('active'); }
+        function closeEditUsersModal() { document.getElementById('edit-users-modal').classList.remove('active'); }
 
         function handleEditUsers(e) {
             e.preventDefault();
-            
-            users.forEach(user => {
-                const input = document.querySelector(`input[name="user-${user.id}"]`);
-                if (input) {
-                    user.name = input.value;
-                }
+            users.forEach(u => {
+                const input = document.querySelector(`input[name="user-${u.id}"]`);
+                if (input) u.name = input.value;
             });
-            
-            saveToStorage();
+            saveLocalData();
             closeEditUsersModal();
             renderAll();
             showNotification('Nombres actualizados', 'success');
+            if (hasConfig) setTimeout(() => syncToGitHub(), 500);
         }
 
-        // ============================================
-        // MODAL FUNCTIONS
-        // ============================================
         function openAddTaskModal() {
             document.getElementById('task-due-date').value = new Date().toISOString().split('T')[0];
             document.getElementById('add-task-modal').classList.add('active');
         }
-
-        function closeAddTaskModal() {
-            document.getElementById('add-task-modal').classList.remove('active');
-        }
+        function closeAddTaskModal() { document.getElementById('add-task-modal').classList.remove('active'); }
+        function openConfigModal() { document.getElementById('config-modal').classList.add('active'); }
+        function closeConfigModal() { document.getElementById('config-modal').classList.remove('active'); }
 
         document.querySelectorAll('.modal-overlay').forEach(overlay => {
-            overlay.addEventListener('click', (e) => {
-                if (e.target === overlay) {
-                    overlay.classList.remove('active');
-                }
-            });
+            overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.remove('active'); });
         });
 
-        // ============================================
-        // NOTIFICATION FUNCTION
-        // ============================================
         function showNotification(message, type = 'success') {
             const notification = document.getElementById('notification');
             const icon = document.getElementById('notification-icon');
-            const messageEl = document.getElementById('notification-message');
-
+            const msg = document.getElementById('notification-message');
             notification.className = 'notification ' + type;
-            
-            switch(type) {
-                case 'success': icon.textContent = '✓'; break;
-                case 'error': icon.textContent = '✗'; break;
-                case 'warning': icon.textContent = '⚠'; break;
-            }
-
-            messageEl.textContent = message;
+            icon.textContent = type === 'success' ? '✓' : type === 'error' ? '✗' : '⚠';
+            msg.textContent = message;
             notification.classList.add('show');
-
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 3000);
+            setTimeout(() => notification.classList.remove('show'), 3000);
         }
     </script>
 </body>

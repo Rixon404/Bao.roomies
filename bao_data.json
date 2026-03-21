@@ -6,5 +6,6 @@
     { "id": "user4", "name": "Pedro", "color": "#c5ad0f", "points": 0, "isAway": false }
   ],
   "tasks": [],
-  "lastSync": ""
+  "lastSync": "",
+  "version": "1.0"
 }
