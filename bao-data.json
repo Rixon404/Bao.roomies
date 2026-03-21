@@ -2,28 +2,28 @@
   "users": [
     {
       "id": "user1",
-      "name": "Tú",
+      "name": "Rixon",
       "color": "#BB86FC",
       "points": 0,
       "isAway": false
     },
     {
       "id": "user2",
-      "name": "Alex",
+      "name": "Michi",
       "color": "#03DAC6",
       "points": 0,
       "isAway": false
     },
     {
       "id": "user3",
-      "name": "Sofia",
+      "name": "Claudia",
       "color": "#CF6679",
       "points": 0,
       "isAway": false
     },
     {
       "id": "user4",
-      "name": "Dani",
+      "name": "Pedro",
       "color": "#FFD700",
       "points": 0,
       "isAway": false
@@ -42,6 +42,6 @@
       "createdBy": "user1"
     }
   ],
-  "lastSync": "2026-03-21T21:35:36.314Z",
+  "lastSync": "2026-03-21T21:35:58.657Z",
   "version": "1.0"
 }
