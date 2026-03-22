@@ -40,8 +40,19 @@
       "points": 20,
       "createdAt": "2026-03-21T21:35:35.244Z",
       "createdBy": "user1"
+    },
+    {
+      "id": "task-1774201739002",
+      "title": "hacer frijoles",
+      "category": "Cocina",
+      "assignedTo": "user1",
+      "isCompleted": false,
+      "dueDate": "2026-03-22T00:00:00.000Z",
+      "points": 15,
+      "createdAt": "2026-03-22T17:48:59.002Z",
+      "createdBy": "user1"
     }
   ],
-  "lastSync": "2026-03-21T21:35:58.657Z",
+  "lastSync": "2026-03-22T17:48:59.507Z",
   "version": "1.0"
 }
