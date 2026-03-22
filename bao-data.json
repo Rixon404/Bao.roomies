@@ -4,7 +4,7 @@
       "id": "user1",
       "name": "Rixon",
       "color": "#BB86FC",
-      "points": 0,
+      "points": 15,
       "isAway": false
     },
     {
@@ -46,13 +46,13 @@
       "title": "hacer frijoles",
       "category": "Cocina",
       "assignedTo": "user1",
-      "isCompleted": false,
+      "isCompleted": true,
       "dueDate": "2026-03-22T00:00:00.000Z",
       "points": 15,
       "createdAt": "2026-03-22T17:48:59.002Z",
       "createdBy": "user1"
     }
   ],
-  "lastSync": "2026-03-22T17:48:59.507Z",
+  "lastSync": "2026-03-22T17:54:11.929Z",
   "version": "1.0"
 }
