@@ -394,10 +394,10 @@
         };
 
         const defaultUsers = [
-            { id: 'user1', name: 'Tú', color: '#BB86FC', points: 0, isAway: false },
-            { id: 'user2', name: 'Alex', color: '#03DAC6', points: 0, isAway: false },
-            { id: 'user3', name: 'Sofia', color: '#CF6679', points: 0, isAway: false },
-            { id: 'user4', name: 'Dani', color: '#FFD700', points: 0, isAway: false }
+            { id: 'user1', name: 'Rixon', color: '#BB86FC', points: 0, isAway: false },
+            { id: 'user2', name: 'Michi', color: '#03DAC6', points: 0, isAway: false },
+            { id: 'user3', name: 'Claudia', color: '#CF6679', points: 0, isAway: false },
+            { id: 'user4', name: 'Pedro', color: '#FFD700', points: 0, isAway: false }
         ];
 
         let currentUser = null;
@@ -580,13 +580,13 @@
 
         async function syncFromGitHub() {
             if (!hasConfig) {
-                // Intentar obtener config primero
                 try {
                     await fetchConfigFromGitHub();
                     showNotification('✅ Config obtenida de GitHub', 'success');
                     checkSetupStatus();
                     return;
                 } catch (error) {
+                    hasConfig = false;  // ← AGREGAR: Resetear si falla
                     showNotification('⚠️ ' + error.message, 'warning');
                     openConfigModal();
                     return;
@@ -941,7 +941,7 @@
             if (!task) return;
             task.isCompleted = true;
             const assignee = users.find(u => u.id === task.assignedTo);
-            if (assignee) assignee.points = (assignee.points || 0) + task.points;
+            if (assignee) assignee.points = Math.max(0, (assignee.points || 0) + task.points);
             saveLocalData();
             renderAll();
             showNotification('¡Tarea completada! +' + task.points + ' XP', 'success');
