@@ -62,8 +62,19 @@
       "points": 15,
       "createdAt": "2026-03-22T18:56:57.337Z",
       "createdBy": "user1"
+    },
+    {
+      "id": "task-1774648227661",
+      "title": "La casa",
+      "category": "Limpieza",
+      "assignedTo": "user4",
+      "isCompleted": false,
+      "dueDate": "2026-03-30T00:00:00.000Z",
+      "points": 20,
+      "createdAt": "2026-03-27T21:50:27.661Z",
+      "createdBy": "user2"
     }
   ],
-  "lastSync": "2026-03-22T19:44:43.338Z",
+  "lastSync": "2026-03-27T21:50:28.897Z",
   "version": "1.0"
 }
