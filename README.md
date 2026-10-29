@@ -1,3 +1,6 @@
+Der la web:
+[Bao.roomies](https://rixon404.github.io/Bao.roomies/)
+ 
  Flujo de Uso Diario:
 1. Tú creas/editas tareas → Auto-sync a GitHub (500ms delay)
 2. Los otros abren la app → Auto-sync desde GitHub al cargar
@@ -7,15 +10,15 @@
 
 Como funciona la BD
 
-┌─────────────────────────────────────────────────────────┐
-│  Tú (Admin) creas las tareas en tu teléfono             │
-│         ↓                                               │
-│  La app guarda automáticamente en GitHub Repo           │
-│  (archivo: bao-data.json)                               │
-│         ↓                                               │
-│  Los otros 3 abren la app → Leen de GitHub              │
-│  ¡Datos sincronizados sin VPN!                          │
-└─────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────┐
+│Tú (Admin) creas las tareas en tu teléfono│
+│         ↓                                │
+│La app guarda automático en GitHub Repo   │
+│(archivo: bao-data.json)                  │
+│         ↓                                │
+│Los otros 3 abren la app → Leen de GitHub │
+│¡Datos sincronizados sin VPN!             │
+└──────────────────────────────────────────┘
 
 RESUMEN DE CONFIGURACIÓN
 Paso 1 Crear PAT en GitHub, Tú (Admin)
